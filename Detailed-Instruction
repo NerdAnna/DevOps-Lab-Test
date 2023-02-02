@@ -1,7 +1,7 @@
-AWS Instance with ElasticSearch
+# AWS Instance with ElasticSearch
 This guide provides instructions on how to launch an AWS instance, install and configure ElasticSearch, and verify that it is functioning.
 
-Prerequisites
+# Prerequisites
 An AWS account
 A key pair for the AWS region where you want to launch the instance
 A security group with appropriate inbound rules
