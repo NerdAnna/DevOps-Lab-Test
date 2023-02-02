@@ -1,7 +1,0 @@
-cluster.name: my_cluster_name # Replace with your desired cluster name
-node.name: node1 # Replace with node1, node2, and node3 for each instance respectively
-network.host: 0.0.0.0
-discovery.seed_hosts: ["node1_private_ip", "node2_private_ip", "node3_private_ip"] # Replace with the private IPs of each instance
-xpack.security.enabled: true
-xpack.security.transport.ssl.enabled: true
-xpack.security.http.ssl.enabled: true
