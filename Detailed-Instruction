@@ -1,0 +1,82 @@
+AWS Instance with ElasticSearch
+This guide provides instructions on how to launch an AWS instance, install and configure ElasticSearch, and verify that it is functioning.
+
+Prerequisites
+An AWS account
+A key pair for the AWS region where you want to launch the instance
+A security group with appropriate inbound rules
+
+Launching an AWS Instance
+1.	Open the Amazon EC2 console.
+2.	Click the Launch Instance button.
+3.	Choose an Amazon Machine Image (AMI), such as Amazon Linux 2, and select it.
+4.	Choose an instance type, such as t2.micro, and select it.
+5.	Configure the instance details as desired.
+6.	Add storage as needed.
+7.	Add tags as desired.
+8.	Choose the security group that you created, or create a new one.
+9.	Review and launch the instance.
+10.	Select the key pair that you created, or create a new one.
+11.	Launch the instance.
+
+
+Installing and Configuring ElasticSearch
+1.	Connect to the instance using SSH.
+2.	Install Java:
+
+sudo yum install -y java-1.8.0-openjdk
+
+
+3.	Download and extract ElasticSearch:
+bash
+wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.0-linux-x86_64.tar.gz
+tar -xzf elasticsearch-7.7.0-linux-x86_64.tar.gz
+sudo mv elasticsearch-7.7.0 /usr/local/elasticsearch
+
+
+4.	Set up the ElasticSearch configuration file:
+sudo nano /usr/local/elasticsearch/config/elasticsearch.yml
+
+In the configuration file, add the following content:
+
+cluster.name: my_cluster_name
+node.name: node1
+network.host: 0.0.0.0
+xpack.security.enabled: true
+xpack.security.transport.ssl.enabled: true
+xpack.security.http.ssl.enabled: true
+
+
+4.	Set up the ElasticSearch configuration file:
+
+sudo /usr/local/elasticsearch/bin/elasticsearch
+
+
+5.	Start the ElasticSearch service:
+sudo /usr/local/elasticsearch/bin/elasticsearch
+
+
+Verifying ElasticSearch Functionality
+1.	Verify that the ElasticSearch service is running:
+curl localhost:9200 
+
+You should see a JSON response indicating that ElasticSearch is running.
+      2. Verify that ElasticSearch requires credentials:
+
+curl https://localhost:9200 
+You should see a response indicating that authentication is required.
+
+
+Conclusion
+With these steps, you have successfully launched an AWS instance,
+installed and configured ElasticSearch, 
+and verified that it is functioning.
+You can now use the instance to run your ElasticSearch workloads.
+
+
+
+
+
+
+
+
