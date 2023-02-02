@@ -1,1 +1,5 @@
-This code will launch an AWS instance, install and configure ElasticSearch, and verify that it is functioning by sending a GET request to the endpoint https://instance_private_ip:9200/_cluster/health?pretty. You can customize the code to fit your specific requirements.
+This code will launch an AWS instance,
+install and configure ElasticSearch,
+and verify that it is functioning by sending a GET request to the endpoint
+https://instance_private_ip:9200/_cluster/health?pretty.
+You can customize the code to fit your specific requirements.
