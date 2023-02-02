@@ -1,0 +1,11 @@
+To make a cluster of 3 ElasticSearch nodes on AWS, you can use the following steps:
+
+Create an EC2 security group that allows incoming traffic on port 9300 for communication between ElasticSearch nodes and port 9200 for communication with clients.
+
+Launch 3 EC2 instances with the Amazon Linux 2 AMI and associate the security group created in step 1 to each instance.
+
+On each EC2 instance, install Java and ElasticSearch as described in the previous answer.
+
+On each EC2 instance, edit the ElasticSearch configuration file elasticsearch.yml and set the following parameters:
+
+
