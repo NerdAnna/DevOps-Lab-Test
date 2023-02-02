@@ -1,11 +1,32 @@
 To make a cluster of 3 ElasticSearch nodes on AWS, you can use the following steps:
 
-Create an EC2 security group that allows incoming traffic on port 9300 for communication between ElasticSearch nodes and port 9200 for communication with clients.
 
-Launch 3 EC2 instances with the Amazon Linux 2 AMI and associate the security group created in step 1 to each instance.
 
-On each EC2 instance, install Java and ElasticSearch as described in the previous answer.
+1. Create an EC2 security group that allows incoming traffic on port 9300 for communication between ElasticSearch nodes and port 9200 for communication with clients.
 
-On each EC2 instance, edit the ElasticSearch configuration file elasticsearch.yml and set the following parameters:
+2. Launch 3 EC2 instances with the Amazon Linux 2 AMI and associate the security group created in step 1 to each instance.
 
+3. On each EC2 instance, install Java and ElasticSearch as described in the previous answer.
+
+4. On each EC2 instance, edit the ElasticSearch configuration file elasticsearch.yml and set the following parameters:
+
+cluster.name: my_cluster_name # Replace with your desired cluster name
+node.name: node1 # Replace with node1, node2, and node3 for each instance respectively
+network.host: 0.0.0.0
+discovery.seed_hosts: ["node1_private_ip", "node2_private_ip", "node3_private_ip"] # Replace with the private IPs of each instance
+xpack.security.enabled: true
+xpack.security.transport.ssl.enabled: true
+xpack.security.http.ssl.enabled: true
+
+
+On each EC2 instance, start the ElasticSearch service using the following command:
+sudo /usr/local/elasticsearch/bin/elasticsearch
+
+
+
+Verify that the cluster has formed correctly by sending a GET request to the endpoint 
+http://node1_private_ip:9200/_cluster/health?pretty
+and checking that the cluster status is green.
+
+You can now access the ElasticSearch cluster by sending requests to any of the node IP addresses. You will need to provide credentials for access.
 
