@@ -1,0 +1,50 @@
+import boto3
+import os
+import requests
+
+# Step 1: Bring up an AWS instance
+ec2 = boto3.resource('ec2')
+
+instance = ec2.create_instances(
+    ImageId='ami-0c55b159cbfafe1f0', # Amazon Linux 2 AMI
+    MinCount=1,
+    MaxCount=1,
+    InstanceType='t2.micro',
+    KeyName='my_key_pair', # Replace with the name of your key pair
+    SecurityGroupIds=['my_security_group'] # Replace with the ID of your security group
+)
+
+instance = instance[0]
+instance.wait_until_running()
+
+# Step 2: Install ElasticSearch and configure it
+# Install Java
+os.system("sudo yum install -y java-1.8.0-openjdk")
+
+# Download and extract ElasticSearch
+os.system("wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.0-linux-x86_64.tar.gz")
+os.system("tar -xzf elasticsearch-7.7.0-linux-x86_64.tar.gz")
+os.system("sudo mv elasticsearch-7.7.0 /usr/local/elasticsearch")
+
+# Set up the ElasticSearch configuration file
+with open("/usr/local/elasticsearch/config/elasticsearch.yml", "w") as file:
+    file.write("cluster.name: my_cluster_name\n")
+    file.write("node.name: node1\n")
+    file.write("network.host: 0.0.0.0\n")
+    file.write("xpack.security.enabled: true\n")
+    file.write("xpack.security.transport.ssl.enabled: true\n")
+    file.write("xpack.security.http.ssl.enabled: true\n")
+
+# Start the ElasticSearch service
+os.system("sudo /usr/local/elasticsearch/bin/elasticsearch")
+
+# Step 3: Demonstrate that ElasticSearch is functioning
+private_ip = instance.private_ip_address
+url = "https://" + private_ip + ":9200/_cluster/health?pretty"
+
+try:
+    response = requests.get(url, auth=('elastic', 'changeme')) # Replace 'elastic' and 'changeme' with your credentials
+    response.raise_for_status()
+    print("ElasticSearch is functioning")
+except requests.exceptions.RequestException as e:
+    print("Error:", e)
