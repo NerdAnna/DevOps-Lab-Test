@@ -6,7 +6,7 @@ An AWS account
 A key pair for the AWS region where you want to launch the instance
 A security group with appropriate inbound rules
 
-Launching an AWS Instance
+# Launching an AWS Instance
 1.	Open the Amazon EC2 console.
 2.	Click the Launch Instance button.
 3.	Choose an Amazon Machine Image (AMI), such as Amazon Linux 2, and select it.
@@ -20,14 +20,14 @@ Launching an AWS Instance
 11.	Launch the instance.
 
 
-Installing and Configuring ElasticSearch
+# Installing and Configuring ElasticSearch
 1.	Connect to the instance using SSH.
 2.	Install Java:
 
 sudo yum install -y java-1.8.0-openjdk
 
 
-3.	Download and extract ElasticSearch:
+3.    Download and extract ElasticSearch:
 bash
 wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.7.0-linux-x86_64.tar.gz
 tar -xzf elasticsearch-7.7.0-linux-x86_64.tar.gz
@@ -37,7 +37,7 @@ sudo mv elasticsearch-7.7.0 /usr/local/elasticsearch
 4.	Set up the ElasticSearch configuration file:
 sudo nano /usr/local/elasticsearch/config/elasticsearch.yml
 
-In the configuration file, add the following content:
+# In the configuration file, add the following content:
 
 cluster.name: my_cluster_name
 node.name: node1
@@ -47,27 +47,22 @@ xpack.security.transport.ssl.enabled: true
 xpack.security.http.ssl.enabled: true
 
 
-4.	Set up the ElasticSearch configuration file:
-
-sudo /usr/local/elasticsearch/bin/elasticsearch
-
-
 5.	Start the ElasticSearch service:
 sudo /usr/local/elasticsearch/bin/elasticsearch
 
 
-Verifying ElasticSearch Functionality
+# Verifying ElasticSearch Functionality
 1.	Verify that the ElasticSearch service is running:
 curl localhost:9200 
 
-You should see a JSON response indicating that ElasticSearch is running.
-      2. Verify that ElasticSearch requires credentials:
+# You should see a JSON response indicating that ElasticSearch is running.
+2.    Verify that ElasticSearch requires credentials:
 
 curl https://localhost:9200 
 You should see a response indicating that authentication is required.
 
 
-Conclusion
+#Conclusion
 With these steps, you have successfully launched an AWS instance,
 installed and configured ElasticSearch, 
 and verified that it is functioning.
